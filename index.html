@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dr. Michael Dorsey — AI Tools for Real Practitioners</title>
+  <meta name="description" content="AI-powered tools built and tested by a shaman, broadcast engineer, and clinical hypnotherapist. Open source. Free to use. Built to the standard of real expert scrutiny." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: #09090b;
+      color: #e4e4e7;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    .nav {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(9,9,11,0.95);
+      backdrop-filter: blur(8px);
+    }
+    .nav-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px; font-weight: 700; color: #fff;
+    }
+    .nav-links { display: flex; gap: 20px; }
+    .nav-link {
+      font-size: 13px; color: #71717a;
+      text-decoration: none; transition: color .15s;
+    }
+    .nav-link:hover { color: #fff; }
+
+    /* HERO */
+    .hero {
+      max-width: 900px; margin: 0 auto;
+      padding: 5rem 2rem 4rem; text-align: center;
+    }
+    .hero-disciplines {
+      display: flex; align-items: center;
+      justify-content: center; gap: 10px;
+      margin-bottom: 2rem; flex-wrap: wrap;
+    }
+    .disc {
+      font-size: 11px; font-family: 'JetBrains Mono', monospace;
+      letter-spacing: .15em; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 20px; font-weight: 500;
+    }
+    .disc-gold { background: rgba(197,160,89,0.12); border: 1px solid rgba(197,160,89,0.25); color: #c5a059; }
+    .disc-blue { background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.2); color: #38bdf8; }
+    .disc-green { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); color: #10b981; }
+    .disc-sep { color: #3f3f46; font-size: 12px; }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(38px, 6vw, 70px);
+      font-weight: 900; color: #fff;
+      line-height: 1.08; margin-bottom: 1.5rem;
+      letter-spacing: -.02em;
+    }
+    .hero h1 em { font-style: italic; color: #c5a059; }
+    .hero-sub {
+      font-size: 16px; color: #a1a1aa;
+      max-width: 580px; margin: 0 auto 2.5rem;
+      line-height: 1.8;
+    }
+    .hero-cta {
+      display: flex; align-items: center;
+      justify-content: center; gap: 12px; flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #c5a059; color: #000;
+      font-size: 14px; font-weight: 600;
+      padding: 11px 24px; border-radius: 10px;
+      text-decoration: none; transition: background .15s;
+      font-family: 'Inter', sans-serif;
+    }
+    .btn-primary:hover { background: #d4ae6a; }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: #a1a1aa;
+      font-size: 14px; font-weight: 500;
+      padding: 11px 24px; border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.12);
+      text-decoration: none; transition: all .15s;
+      font-family: 'Inter', sans-serif;
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.25); color: #fff; }
+
+    /* DIVIDER */
+    .divider { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
+    .divider hr { border: none; border-top: 1px solid rgba(255,255,255,0.06); }
+
+    /* STATS */
+    .stats-row {
+      background: #111113;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .stats-inner {
+      max-width: 900px; margin: 0 auto;
+      padding: 2.5rem 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 2rem;
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 38px; font-weight: 700;
+      color: #c5a059; margin-bottom: 4px;
+    }
+    .stat-desc {
+      font-size: 11px; color: #52525b;
+      font-family: 'JetBrains Mono', monospace;
+      text-transform: uppercase; letter-spacing: .1em;
+    }
+
+    /* MISSION */
+    .mission { max-width: 900px; margin: 0 auto; padding: 4.5rem 2rem; }
+    .section-eyebrow {
+      font-size: 11px; font-family: 'JetBrains Mono', monospace;
+      letter-spacing: .18em; text-transform: uppercase;
+      color: #52525b; margin-bottom: 1.5rem;
+    }
+    .mission-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(18px, 2.5vw, 24px);
+      font-style: italic; color: #d4d4d8;
+      line-height: 1.85;
+      border-left: 3px solid #c5a059;
+      padding-left: 1.5rem; margin-bottom: 2rem;
+    }
+    .mission-body {
+      font-size: 15px; color: #71717a;
+      line-height: 1.85; max-width: 680px;
+    }
+
+    /* APPS */
+    .apps { max-width: 900px; margin: 0 auto; padding: 4rem 2rem; }
+    .section-header { margin-bottom: 2.5rem; }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(24px, 3vw, 32px);
+      font-weight: 700; color: #fff; margin-top: .75rem; margin-bottom: .5rem;
+    }
+    .section-sub { font-size: 14px; color: #71717a; line-height: 1.7; }
+
+    .apps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 14px;
+    }
+    .app-card {
+      background: #111113;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px; padding: 1.5rem;
+      transition: border-color .2s, transform .2s;
+      text-decoration: none; display: block;
+    }
+    .app-card:hover {
+      border-color: rgba(255,255,255,0.16);
+      transform: translateY(-2px);
+    }
+    .app-card-top {
+      display: flex; align-items: flex-start;
+      justify-content: space-between; margin-bottom: 1rem;
+    }
+    .app-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      display: flex; align-items: center;
+      justify-content: center; font-size: 20px; flex-shrink: 0;
+    }
+    .app-arrow { font-size: 16px; color: #27272a; transition: color .2s; }
+    .app-card:hover .app-arrow { color: #71717a; }
+    .app-name { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 5px; }
+    .app-desc { font-size: 13px; color: #52525b; line-height: 1.65; margin-bottom: 1rem; }
+    .app-tags { display: flex; gap: 5px; flex-wrap: wrap; }
+    .app-tag {
+      font-size: 10px; padding: 2px 8px; border-radius: 20px;
+      font-weight: 600; letter-spacing: .04em;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* PHILOSOPHY */
+    .philosophy {
+      background: #111113;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .philosophy-inner { max-width: 900px; margin: 0 auto; padding: 4rem 2rem; }
+    .phil-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem; margin-top: 2.5rem;
+    }
+    .phil-item { padding-left: 1rem; border-left: 2px solid rgba(255,255,255,0.08); }
+    .phil-item.gold { border-left-color: #c5a059; }
+    .phil-item.blue { border-left-color: #38bdf8; }
+    .phil-item.green { border-left-color: #10b981; }
+    .phil-title { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 8px; }
+    .phil-text { font-size: 13px; color: #52525b; line-height: 1.75; }
+
+    /* API BOX */
+    .api-section { max-width: 900px; margin: 0 auto; padding: 4rem 2rem; }
+    .api-box {
+      background: #111113;
+      border: 1px solid rgba(197,160,89,0.18);
+      border-radius: 16px; padding: 2.5rem;
+      text-align: center;
+    }
+    .api-box-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px; font-weight: 700;
+      color: #fff; margin-bottom: .75rem;
+    }
+    .api-box-sub {
+      font-size: 14px; color: #71717a;
+      line-height: 1.7; max-width: 440px;
+      margin: 0 auto 1.5rem;
+    }
+    .api-key-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(197,160,89,0.08);
+      border: 1px solid rgba(197,160,89,0.2);
+      border-radius: 8px; padding: 8px 16px;
+      font-size: 13px; color: #c5a059;
+      font-family: 'JetBrains Mono', monospace;
+      margin-bottom: 1.5rem; display: block;
+      width: fit-content; margin: 0 auto 1.5rem;
+    }
+
+    /* FOOTER */
+    .footer {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 2.5rem 2rem; text-align: center;
+    }
+    .footer-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px; font-weight: 700;
+      color: #fff; margin-bottom: 6px;
+    }
+    .footer-roles {
+      font-size: 11px; color: #3f3f46;
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: .1em; text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .footer-copy { font-size: 12px; color: #27272a; }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .hero { padding: 3.5rem 1.5rem 3rem; }
+      .stats-inner { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+      .mission, .apps, .api-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .philosophy-inner { padding: 3rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-brand">Dr. Michael Dorsey</div>
+    <div class="nav-links">
+      <a class="nav-link" href="#apps">Apps</a>
+      <a class="nav-link" href="#mission">Mission</a>
+      <a class="nav-link" href="https://github.com/drmichaeldorsey" target="_blank">GitHub ↗</a>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-disciplines">
+      <span class="disc disc-gold">Shaman</span>
+      <span class="disc-sep">·</span>
+      <span class="disc disc-blue">Broadcast Engineer</span>
+      <span class="disc-sep">·</span>
+      <span class="disc disc-green">Clinical Hypnotherapist</span>
+      <span class="disc-sep">·</span>
+      <span class="disc disc-gold">AI Builder</span>
+    </div>
+    <h1>Tools built from<br><em>lived expertise.</em></h1>
+    <p class="hero-sub">I build AI-powered tools across the disciplines I have spent a lifetime mastering — and I do not ship until they hold up to real expert scrutiny.</p>
+    <div class="hero-cta">
+      <a class="btn-primary" href="https://github.com/drmichaeldorsey" target="_blank">View on GitHub ↗</a>
+      <a class="btn-ghost" href="#apps">Explore the apps</a>
+    </div>
+  </div>
+
+  <div class="divider"><hr /></div>
+
+  <div class="stats-row">
+    <div class="stats-inner">
+      <div class="stat-item">
+        <div class="stat-num">7</div>
+        <div class="stat-desc">Apps shipped</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">42</div>
+        <div class="stat-desc">Years engineering</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">3</div>
+        <div class="stat-desc">Disciplines mastered</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">0</div>
+        <div class="stat-desc">Generic AI output accepted</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mission" id="mission">
+    <div class="section-eyebrow">The standard</div>
+    <div class="mission-quote">
+      "Most AI tools are built by developers and tested by developers. These were pressure-tested by someone who has spent decades in the field — and the bar was simple: does it hold up to real expert scrutiny? Generic AI output does not pass that test."
+    </div>
+    <p class="mission-body">
+      When the course on Advanced Hypnotic Intervention Protocols for Combat Trauma generated techniques that a clinical practitioner would stand behind — that was the bar cleared. When broadcast engineering content survived 42 years of field scrutiny — that was the proof. Every app in this suite was built to that standard, then given freely to the world.
+    </p>
+  </div>
+
+  <div class="divider"><hr /></div>
+
+  <div class="apps" id="apps">
+    <div class="section-header">
+      <div class="section-eyebrow">Open source · Free to use · One API key</div>
+      <div class="section-title">The app suite</div>
+      <div class="section-sub">Seven tools across healing, communication, content, and education. All open source on GitHub. All running on a single Anthropic API key.</div>
+    </div>
+
+    <div class="apps-grid">
+
+      <a class="app-card" href="https://github.com/drmichaeldorsey/eduforge" target="_blank">
+        <div class="app-card-top">
+          <div class="app-icon" style="background:#1a1235">📚</div>
+          <div class="app-arrow">↗</div>
+        </div>
+        <div class="app-name">EduForge v4.1</div>
+        <div class="app-desc">AI course generator with Expert mode. Peer-level depth for practitioners. Tested on advanced hypnosis and broadcast engineering. Each lesson written individually for maximum depth.</div>
+        <div class="app-tags">
+          <span class="app-tag" style="background:#26205a;color:#c4b8f5">Expert mode</span>
+          <span class="app-tag" style="background:#26205a;color:#c4b8f5">Any domain</span>
+        </div>
+      </a>
+
+      <a class="app-card" href="https://github.com/drmichaeldorsey/stoic-suitor" target="_blank">
+        <div class="app-card-top">
+          <div class="app-icon" style="background:#1c1409">♛</div>
+          <div class="app-arrow">↗</div>
+        </div>
+        <div class="app-name">The Stoic Suitor v3.1</div>
+        <div class="app-desc">Dating app reply assistant with a gentleman's composure. Six tone modes, bookmark system, clipboard deployment, and auto-retry on API overload.</div>
+        <div class="app-tags">
+          <span class="app-tag" style="background:#2a1e08;color:#c5a059">6 tones</span>
+          <span class="app-tag" style="background:#2a1e08;color:#c5a059">Bookmarks</span>
+        </div>
+      </a>
+
+      <a class="app-card" href="https://github.com/drmichaeldorsey/smart-writing-assistant" target="_blank">
+        <div class="app-card-top">
+          <div class="app-icon" style="background:#0d1520" style="font-size:18px">&#9998;</div>
+          <div class="app-arrow">↗</div>
+        </div>
+        <div class="app-name">Smart Writing Assistant v2</div>
+        <div class="app-desc">Context-aware writing analysis and coaching. Six modes including Technical, Clinical, and Course. Real-time feedback that fits what you are actually writing.</div>
+        <div class="app-tags">
+          <span class="app-tag" style="background:#0d1a28;color:#85B7EB">No API key</span>
+          <span class="app-tag" style="background:#0d1a28;color:#85B7EB">6 contexts</span>
+        </div>
+      </a>
+
+      <a class="app-card" href="https://github.com/drmichaeldorsey/content-engine-pro" target="_blank">
+        <div class="app-card-top">
+          <div class="app-icon" style="background:#0d1520">🎯</div>
+          <div class="app-arrow">↗</div>
+        </div>
+        <div class="app-name">Content Engine Pro</div>
+        <div class="app-desc">Full AI content dashboard. Generate variations by topic and tone, build multi-part series, tag free or premium, and export as a text bundle.</div>
+        <div class="app-tags">
+          <span class="app-tag" style="background:#0d1a28;color:#85B7EB">Series builder</span>
+          <span class="app-tag" style="background:#0d1a28;color:#85B7EB">Export</span>
+        </div>
+      </a>
+
+      <a class="app-card" href="https://github.com/drmichaeldorsey/stoic-sales-reply" target="_blank">
+        <div class="app-card-top">
+          <div class="app-icon" style="background:#0d1a10">⚡</div>
+          <div class="app-arrow">↗</div>
+        </div>
+        <div class="app-name">Stoic Sales Reply</div>
+        <div class="app-desc">Paste any prospect message, choose a tone, get three AI-crafted sales responses instantly. Closer, Professional, Friendly, or Direct.</div>
+        <div class="app-tags">
+          <span class="app-tag" style="background:#0d2014;color:#5DCAA5">4 tones</span>
+          <span class="app-tag" style="background:#0d2014;color:#5DCAA5">3 replies</span>
+        </div>
+      </a>
+
+      <a class="app-card" href="https://github.com/drmichaeldorsey/subscription-tracker" target="_blank">
+        <div class="app-card-top">
+          <div class="app-icon" style="background:#0d1a14">📊</div>
+          <div class="app-arrow">↗</div>
+        </div>
+        <div class="app-name">Subscription Tracker</div>
+        <div class="app-desc">Track monthly burn, spot wasted subscriptions, manage billing cycles. Local-first — all data stays in your browser. No backend, no account needed.</div>
+        <div class="app-tags">
+          <span class="app-tag" style="background:#0d2014;color:#5DCAA5">No API key</span>
+          <span class="app-tag" style="background:#0d2014;color:#5DCAA5">Local first</span>
+        </div>
+      </a>
+
+      <a class="app-card" href="https://github.com/drmichaeldorsey" target="_blank">
+        <div class="app-card-top">
+          <div class="app-icon" style="background:#1a1a1d;color:#52525b;font-size:24px;font-weight:300">+</div>
+          <div class="app-arrow">↗</div>
+        </div>
+        <div class="app-name">More coming</div>
+        <div class="app-desc">New tools in development across healing modalities, engineering education, and practitioner support. Follow on GitHub to stay current.</div>
+        <div class="app-tags">
+          <span class="app-tag" style="background:#1a1a1d;color:#52525b">In progress</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <div class="philosophy">
+    <div class="philosophy-inner">
+      <div class="section-eyebrow">How these tools are different</div>
+      <div class="section-title">Built at the intersection of three worlds</div>
+      <div class="phil-grid">
+        <div class="phil-item gold">
+          <div class="phil-title">Ancient wisdom, modern tools</div>
+          <div class="phil-text">Shamanic practice teaches you to read systems — energy, pattern, flow, and blockage. That same instinct drives how these tools are designed: find the leverage point, remove the friction, let the knowledge move.</div>
+        </div>
+        <div class="phil-item blue">
+          <div class="phil-title">Engineering precision</div>
+          <div class="phil-text">42 years in broadcast engineering means you know when a system is working and when it is not. No impressive-looking output passes if it does not hold up under real technical scrutiny. That standard applies to every app.</div>
+        </div>
+        <div class="phil-item green">
+          <div class="phil-title">The healer's ethic</div>
+          <div class="phil-text">Clinical hypnotherapy and healing practice demand that you actually help. Tools that generate plausible-sounding nonsense are worse than nothing in the hands of a practitioner. These tools are tested against real knowledge before they ship.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="api-section">
+    <div class="api-box">
+      <div class="api-box-title">One key. Seven apps. Zero barriers.</div>
+      <div class="api-box-sub">Every AI-powered tool in this suite runs on a single Anthropic API key. Free to use, free to fork, free to build on.</div>
+      <div class="api-key-badge">console.anthropic.com</div>
+      <a class="btn-primary" href="https://github.com/drmichaeldorsey" target="_blank">View all repositories ↗</a>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-name">Dr. Michael Dorsey</div>
+    <div class="footer-roles">Shaman · Broadcast Engineer · Clinical Hypnotherapist · AI Builder</div>
+    <div class="footer-copy">Open source · 2026 · Built with intention</div>
+  </footer>
+
+</body>
+</html>
